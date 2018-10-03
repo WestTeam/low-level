@@ -6,8 +6,6 @@ image.
 
 We use linux-socfpga and uboot-socfpga dependencies from Altera.
 
-TODO: XXX
-
 Setup the cross-compile toolchain:
 ====
 
