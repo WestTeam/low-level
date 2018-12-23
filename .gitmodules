@@ -7,3 +7,6 @@
 [submodule "rtl8192du"]
 	path = rtl8192du
 	url = git@github.com:WestTeam/rtl8192du.git
+[submodule "qtbase"]
+	path = qtbase
+	url = git://code.qt.io/qt/qtbase.git
