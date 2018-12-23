@@ -4,3 +4,6 @@
 [submodule "u-boot-socfpga"]
 	path = u-boot-socfpga
 	url = https://github.com/altera-opensource/u-boot-socfpga.git
+[submodule "rtl8192du"]
+	path = rtl8192du
+	url = git@github.com:WestTeam/rtl8192du.git
