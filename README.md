@@ -138,8 +138,7 @@ Qt cross compilation:
 
 On the DE0 file system:
 
-sudo nano /etc/apt/sources.list
-	and uncomment the deb-src line
+sudo nano /etc/apt/sources.list and uncomment the deb-src line
 sudo apt-get update
 sudo apt-get -y build-dep qt4-x11
 sudo apt-get -y build-dep libqt5gui5
@@ -149,23 +148,26 @@ sudo mkdir /usr/local/qt5de0
 sudo chown root:root /usr/local/qt5de0
 
 On the host file system:
-		mkdir ~/de0
-		cd ~/de0
-		git clone https://github.com/raspberrypi/tools
+mkdir ~/de0
+cd ~/de0
 
-		mkdir sysroot sysroot/usr sysroot/opt
-		rsync -avz root@192.168.x.x:/lib sysroot
-		rsync -avz root@192.168.x.x:/usr/include sysroot/usr
-		rsync -avz root@192.168.x.x:/usr/lib sysroot/usr
+mkdir sysroot sysroot/usr sysroot/opt
+rsync -avz root@192.168.x.x:/lib sysroot
+rsync -avz root@192.168.x.x:/usr/include sysroot/usr
+rsync -avz root@192.168.x.x:/usr/lib sysroot/usr
 
-		wget https://raw.githubusercontent.com/riscv/riscv-poky/master/scripts/sysroot-relativelinks.py
-		chmod +x sysroot-relativelinks.py
-		./sysroot-relativelinks.py sysroot
+wget https://raw.githubusercontent.com/riscv/riscv-poky/master/scripts/sysroot-relativelinks.py
+chmod +x sysroot-relativelinks.py
+./sysroot-relativelinks.py sysroot
 
-		git clone git://code.qt.io/qt/qtbase.git 
-		cd qtbase
+git clone git://code.qt.io/qt/qtbase.git -b 5.11
+cd qtbase
 
-./configure -release -opensource -confirm-license -device linux-rasp-pi2-g++ -device-option CROSS_COMPILE=/home/westbot/Documents/robotics/ws/de0/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf- -sysroot ~/de0/sysroot -optimized-qmake -make libs -prefix /usr/local/qt5de0 -extprefix /home/westbot/Documents/robotics/ws/de0/qt5de0 -hostprefix /home/westbot/Documents/robotics/ws/de0/qt5 -no-pch -nomake examples -nomake tests -no-xcb -no-gcc-sysroot -no-opengl -v
+On fait gaffe a bien utiliser la meme toolchain que pour le build du kernel si on veux pas avoir des souci (avec les float par exemple mvoyezzzzz)
 
-		make
-		make install
+./configure -debug -opensource -confirm-license -device linux-rasp-pi2-g++ -device-option CROSS_COMPILE=/home/westbot/Documents/robotics/ws/low-level/gcc-linaro-6.1.1-2016.08-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- -sysroot ~/de0/sysroot -optimized-qmake -make libs -prefix /usr/local/qt5de0 -extprefix /home/westbot/Documents/robotics/ws/de0/qt5de0 -hostprefix /home/westbot/Documents/robotics/ws/de0/qt5 -no-pch -nomake examples -nomake tests -no-xcb -no-gcc-sysroot -no-opengl -qreal float -v
+
+make -j4
+make install
+
+On peux builder des modules suppl genre QtSerialPort si besoin ...
