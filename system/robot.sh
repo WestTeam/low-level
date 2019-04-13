@@ -15,7 +15,7 @@ case $touche in
 # create an empty image file of 3.8Go
 image="robot.img"
 
-dd if=/dev/zero of=$image bs=800M count=1 # about 3.8Go
+dd if=/dev/zero of=$image bs=1O00M count=1 # about 3.8Go
 
 # Use a loopback device for partition and data
 ld=$(losetup --show -f $image)
